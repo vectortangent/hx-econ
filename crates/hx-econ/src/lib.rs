@@ -44,6 +44,7 @@
 //! ```
 
 // Module declarations
+pub mod architecture;
 pub mod ids;
 pub mod pack;
 pub mod fields;

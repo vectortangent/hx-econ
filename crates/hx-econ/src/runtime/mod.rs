@@ -7,6 +7,9 @@ use crate::util::{apply_decay, clamp, fixed_mul, quantize, BitSet, FIXED_ONE};
 
 pub mod state;
 
+#[cfg(test)]
+mod tests;
+
 pub use state::{MarketMetadata, MarketState};
 
 /// Economy runtime state and simulation
@@ -167,73 +170,5 @@ impl EconomyRuntime {
     /// Mark an edge as dirty (needs recomputation)
     pub fn mark_edge_dirty(&mut self, edge_idx: usize) {
         self.dirty_edges.set(edge_idx);
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use crate::ids::RegionId;
-    use crate::pack::GoodConfig;
-    use crate::util::to_fixed;
-
-    #[test]
-    fn test_economy_runtime_creation() {
-        let goods_registry = GoodsRegistry {
-            goods: vec![GoodConfig {
-                name: "test_good".to_string(),
-                bulk_q: FIXED_ONE,
-                base_decay_q: to_fixed(0.01),
-                target_stock_per_capita_q: FIXED_ONE,
-                scarcity_alpha_q: to_fixed(0.1),
-                transit_decay_q: None,
-            }],
-        };
-
-        let mut runtime = EconomyRuntime::new(12345, 2, 1, 1, goods_registry);
-        runtime
-            .market_state
-            .add_market(RegionId::new(0), 1000, FIXED_ONE);
-        runtime
-            .market_state
-            .add_market(RegionId::new(0), 2000, FIXED_ONE);
-
-        assert_eq!(runtime.market_state.market_count, 2);
-        assert_eq!(runtime.market_state.good_count, 1);
-    }
-
-    #[test]
-    fn test_storage_decay() {
-        let goods_registry = GoodsRegistry {
-            goods: vec![GoodConfig {
-                name: "food".to_string(),
-                bulk_q: FIXED_ONE,
-                base_decay_q: to_fixed(0.1), // 10% decay per tick
-                target_stock_per_capita_q: FIXED_ONE,
-                scarcity_alpha_q: to_fixed(0.1),
-                transit_decay_q: None,
-            }],
-        };
-
-        let mut runtime = EconomyRuntime::new(12345, 1, 1, 1, goods_registry);
-        runtime
-            .market_state
-            .add_market(RegionId::new(0), 1000, FIXED_ONE);
-
-        let market = MarketId::new(0);
-        let good = GoodId::new(0);
-
-        // Set initial stock
-        runtime
-            .market_state
-            .set_stock(market, good, to_fixed(100.0));
-
-        // Run one step with dt = 1
-        runtime.step(FIXED_ONE);
-
-        // Stock should have decayed by 10%
-        let final_stock = runtime.market_state.get_stock(market, good);
-        let expected = to_fixed(90.0);
-        assert!((final_stock - expected).abs() < 1000); // Allow rounding error
     }
 }

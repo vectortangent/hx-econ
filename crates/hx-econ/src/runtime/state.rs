@@ -24,11 +24,11 @@ pub struct MarketState {
     /// Market metadata (indexed by MarketId)
     pub metadata: Vec<MarketMetadata>,
 
-    /// Stock levels: [market][good] flattened
+    /// Stock levels: \[market\]\[good\] flattened
     /// Access: stock[market_id * good_count + good_id]
     pub stock: Vec<i32>,
 
-    /// Prices: [market][good] flattened
+    /// Prices: \[market\]\[good\] flattened
     /// Access: price[market_id * good_count + good_id]
     pub price: Vec<i32>,
 }

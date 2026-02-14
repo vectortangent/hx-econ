@@ -35,8 +35,8 @@ pub struct TransportGraph {
     /// All edges, sorted by (region, from, to, edge_id)
     pub edges: Vec<TransportEdge>,
 
-    /// Range of edges for each region: region_ranges[region_id] = (start, end)
-    /// Edges for region R are edges[start..end]
+    /// Range of edges for each region: region_ranges\[region_id\] = (start, end)
+    /// Edges for region R are edges\[start..end\]
     pub region_ranges: Vec<(usize, usize)>,
 }
 
