@@ -1,0 +1,17 @@
+[package]
+name = "hx-econ"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[features]
+default = ["bevy"]
+bevy = ["dep:bevy"]
+
+[dependencies]
+bevy = { workspace = true, optional = true }
+serde.workspace = true
+toml.workspace = true
+
+[dev-dependencies]
