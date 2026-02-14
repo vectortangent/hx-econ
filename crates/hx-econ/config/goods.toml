@@ -1,0 +1,36 @@
+# Example goods configuration for hx-econ
+
+[[goods]]
+name = "food"
+bulk_q = 65536              # 1.0 in fixed-point (2^16)
+base_decay_q = 6553         # ~0.1 (10% decay per tick)
+target_stock_per_capita_q = 131072  # 2.0 per capita
+scarcity_alpha_q = 32768    # 0.5 price sensitivity
+
+[[goods]]
+name = "wood"
+bulk_q = 131072             # 2.0 in fixed-point
+base_decay_q = 0            # No decay
+target_stock_per_capita_q = 65536   # 1.0 per capita
+scarcity_alpha_q = 16384    # 0.25 price sensitivity
+
+[[goods]]
+name = "stone"
+bulk_q = 196608             # 3.0 in fixed-point
+base_decay_q = 0            # No decay
+target_stock_per_capita_q = 32768   # 0.5 per capita
+scarcity_alpha_q = 16384    # 0.25 price sensitivity
+
+[[goods]]
+name = "tools"
+bulk_q = 98304              # 1.5 in fixed-point
+base_decay_q = 1310         # ~0.02 (2% decay per tick)
+target_stock_per_capita_q = 49152   # 0.75 per capita
+scarcity_alpha_q = 49152    # 0.75 price sensitivity
+
+[[goods]]
+name = "luxury"
+bulk_q = 32768              # 0.5 in fixed-point
+base_decay_q = 3276         # ~0.05 (5% decay per tick)
+target_stock_per_capita_q = 16384   # 0.25 per capita
+scarcity_alpha_q = 65536    # 1.0 price sensitivity
