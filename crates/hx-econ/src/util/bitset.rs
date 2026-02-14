@@ -8,7 +8,7 @@ pub struct BitSet {
 impl BitSet {
     /// Create a new bitset with capacity for `size` bits
     pub fn new(size: usize) -> Self {
-        let words = (size + 63) / 64;
+        let words = size.div_ceil(64);
         Self {
             bits: vec![0; words],
         }

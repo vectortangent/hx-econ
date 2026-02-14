@@ -9,6 +9,7 @@ use crate::pack::GoodsRegistry;
 use crate::runtime::EconomyRuntime;
 
 /// Plugin that adds economy simulation to a Bevy app
+#[derive(Default)]
 pub struct EconomyPlugin {
     /// Number of markets to allocate
     pub market_count: usize,
@@ -20,18 +21,6 @@ pub struct EconomyPlugin {
     pub goods_registry: GoodsRegistry,
     /// Configuration
     pub config: EconomyConfig,
-}
-
-impl Default for EconomyPlugin {
-    fn default() -> Self {
-        Self {
-            market_count: 0,
-            good_count: 0,
-            region_count: 0,
-            goods_registry: GoodsRegistry::default(),
-            config: EconomyConfig::default(),
-        }
-    }
 }
 
 impl Plugin for EconomyPlugin {
